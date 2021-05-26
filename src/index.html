@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>VICEMP3</title>
+</head>
+
+<body>
+    <div class="mt-5"></div>
+    <div class="container">
+        <div class="h1 mb-5">VICEMP3</div>
+
+        <div class='h4'>Play and stop buttons</div>
+        <br>
+        <button onclick="play()" class='btn btn-primary'>Play</button>
+        <button onclick="stop()" class='btn btn-danger'>Stop</button>
+
+        <hr>
+
+        <div class='h4'>Toggle button</div>
+        <br>
+        <button onclick="toggle()" class='btn btn-warning'>Play | Stop</button>
+
+        <hr>
+
+        <div class='h4'>Restart button</div>
+        <br>
+        <button onclick="restart()" class='btn btn-light me-3'>Restart</button>
+        <input type="checkbox" id="checkbox_restart" checked> Play after restart
+
+        <hr>
+
+        <div class='h4'>Change volume</div>
+        <br>
+        <button onclick="volume_set(1)" class='btn btn-light'>Volume to 1</button>
+        <button onclick="volume_set(0.5)" class='btn btn-light'>Volume to 0.5</button>
+        <button onclick="volume_set(0.1)" class='btn btn-light'>Volume to 0.1</button>
+    </div>
+    <script src="./vicemp3.js"></script>
+    <script>
+
+        let audio = undefined, mp3_path = './wave.mp3'
+        const set = () => { audio = new VICEMP3(mp3_path, 1, true) }
+        set()
+
+        function play() { audio.play() }
+
+        function toggle() { if (audio != undefined) audio.toggle() }
+
+        function stop() { if (audio != undefined) audio.stop() }
+
+        function restart() {
+            audio.stop() // comment this line to make multiple audios play
+            set()
+            if (document.getElementById('checkbox_restart').checked == true) play()
+        }
+
+        function volume_set(volume) { audio.setVolume(volume) }
+
+    </script>
+</body>
+
+</html>
